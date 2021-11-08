@@ -65,8 +65,8 @@ RUN --mount=type=secret,id=nginx-crt,dst=/etc/ssl/nginx/nginx-repo.crt,mode=0644
 RUN sed -i "6 a load_module modules/ngx_http_app_protect_module.so;" /etc/nginx/nginx.conf
 
 # UPDATE App Protect Attack Signatures + Threat Campaigns
-wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-7.repo
-yum -y install app-protect-attack-signatures app-protect-threat-campaigns
+RUN wget -P /etc/yum.repos.d https://cs.nginx.com/static/files/app-protect-7.repo \
+  && yum -y install app-protect-attack-signatures app-protect-threat-campaigns
 
 FROM nap-installer as cleaner
 # cleanup sensitive nginx-plus data
