@@ -2,6 +2,7 @@
 #
 # This script launches nginx and the NGINX Controller Agent.
 #
+echo "------ version 13:10 ------"
 
 # Variables
 agent_conf_file="/etc/controller-agent/agent.conf"
@@ -129,6 +130,8 @@ fi
 
 wait_term()
 {
+    echo "-------- wait_term received"
+    sleep 60
     wait ${agent_pid}
     trap - TERM
     kill -QUIT "${nginx_pid}" 2>/dev/null
@@ -136,6 +139,7 @@ wait_term()
     wait ${nginx_pid}
     # unregister - start
     echo " UNREGISTER instance from Controller"
+    sleep 60
     export ENV_CONTROLLER_INSTANCE_NAME=${instance_name}
     sh remove.sh
     # unregister - end
