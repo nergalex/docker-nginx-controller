@@ -132,9 +132,12 @@ wait_term()
 {
     wait ${agent_pid}
     trap - TERM
-    echo "-------- SIG TERM received"
-    export ENV_CONTROLLER_INSTANCE_NAME=${instance_name}
+    kill -QUIT "${nginx_pid}" 2>/dev/null
+    echo "waiting for nginx to stop..."
+    wait ${nginx_pid}
+    # unregister - start
     echo " UNREGISTER instance from Controller"
+    export ENV_CONTROLLER_INSTANCE_NAME=${instance_name}
     echo " ---> using ENV_CONTROLLER_API_URL = ${ENV_CONTROLLER_API_URL}"
     echo " ---> using ENV_CONTROLLER_USERNAME = ${ENV_CONTROLLER_USERNAME}"
     echo " ---> using ENV_CONTROLLER_PASSWORD = ${ENV_CONTROLLER_PASSWORD}"
@@ -142,9 +145,7 @@ wait_term()
     sh remove.sh
     echo " UNREGISTER done"
     sleep 60
-    kill -QUIT "${nginx_pid}" 2>/dev/null
-    echo "waiting for nginx to stop..."
-    wait ${nginx_pid}
+    # unregister - end
 }
 
 wait_term

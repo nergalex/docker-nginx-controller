@@ -8,6 +8,9 @@ ARG NGINX_PLUS_VERSION=25
 
 COPY nginx-plus-api.conf /etc/nginx/conf.d/
 COPY entrypoint.sh /
+# change lab k8s - start
+COPY remove.sh /
+# change lab k8s - end
 
 ENV NGINX_GPGKEY=573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 
