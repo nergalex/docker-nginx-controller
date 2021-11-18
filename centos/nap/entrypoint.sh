@@ -138,6 +138,7 @@ wait_term()
     echo " UNREGISTER instance from Controller"
     export ENV_CONTROLLER_INSTANCE_NAME=${instance_name}
     sh remove.sh
+    echo " UNREGISTER done"
     # unregister - end
 }
 
