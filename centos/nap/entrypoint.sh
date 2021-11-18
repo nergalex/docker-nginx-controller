@@ -134,6 +134,11 @@ wait_term()
     kill -QUIT "${nginx_pid}" 2>/dev/null
     echo "waiting for nginx to stop..."
     wait ${nginx_pid}
+    # unregister - start
+    echo " UNREGISTER instance from Controller"
+    export ENV_CONTROLLER_INSTANCE_NAME=${instance_name}
+    sh remove.sh
+    # unregister - end
 }
 
 wait_term
